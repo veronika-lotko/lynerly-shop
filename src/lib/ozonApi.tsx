@@ -1,5 +1,5 @@
 const OZON_API_URL = "https://api.ozon.ru/example-endpoint";
-const OZON_API_KEY = process.env.OZON_API_KEY;
+const OZON_API_KEY = process.env.NEXT_PUBLIC_OZON_API_KEY;
 
 interface Params {
   [key: string]: string;
@@ -14,7 +14,7 @@ export async function fetchOzonData(params: Params = {}) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        ...(process.env.OZON_CLIENT_ID && { "Client-Id": process.env.OZON_CLIENT_ID }),
+        // ...(process.env.OZON_CLIENT_ID && { "Client-Id": process.env.OZON_CLIENT_ID }),
         ...(OZON_API_KEY && { "Api-Key": OZON_API_KEY }),
       },
     });
