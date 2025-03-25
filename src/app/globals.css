@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --green: rgba(83, 109, 72, 1);
+  --wbcolor: rgba(255, 0, 158, 1)
+  --ozoncolor: rgba(41, 98, 255, 1)
+  --font: 'Jost', sans-serif;
+  --font-size-standard-xs: 12px;
+  --font-size-standard-sm: 16px;
+  --font-size-standard-md: 24px;
+  --font-size-standard-lg: 40px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,9 +29,9 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font);
+  text-transform: uppercase;
+  
 }
 
 * {
