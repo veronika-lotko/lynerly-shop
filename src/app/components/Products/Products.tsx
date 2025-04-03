@@ -27,6 +27,7 @@ const Products: FC = () => {
     fetchData();
   }, []);
 
+  // Матчинг товаров по offer_id (Ozon) и vendorCode (WB)
   const matchedProducts = ozonData.map((ozonItem) => {
     const wbMatch = wbData.find((wbItem) => wbItem.vendorCode === ozonItem.offer_id);
     return { ...ozonItem, wbid: wbMatch?.wbid };
@@ -41,15 +42,17 @@ const Products: FC = () => {
             <li key={id} style={{ marginBottom: "20px" }}>
               <div>{offer_id}</div>
               <img src={primary_image} alt={`Product ${id}`} width="150" />
-              <br />
-
               <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
                 Ozon: https://www.ozon.ru/product/{id}
               </a>
               {wbid && (
                 <>
                   <br />
-                  <a href={`https://www.wildberries.ru/catalog/${wbid}`} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     WB: https://www.wildberries.ru/catalog/{wbid}
                   </a>
                 </>
