@@ -1,16 +1,18 @@
 "use client";
 import React, { FC } from "react";
 import Image from "next/image";
-import { BannerContainer, BannerTitle, ImageContainer, Description, MainButton } from "./styles";
+import { BannerContainer, BannerTitle, ImageContainer, Description, MainButton, LogoContainer } from "./styles";
 
 const Banner: FC = () => {
   return (
     <BannerContainer>
-      <Image src="/img/logo.png" alt="Lynerly Shop" width={250} height={50} />
+      <LogoContainer>
+        <Image src="/img/logo.png" alt="Lynerly Shop" width={250} height={50} className="logo" />
+      </LogoContainer>
       <BannerTitle>СТЯЖНЫЕ РЕМНИ</BannerTitle>
       <ImageContainer>
-        <Image src="/img/banner-item.png" alt="Lynerly Shop" className="banner-item-first" width={500} height={300} />
-        <Image src="/img/banner-item.png" alt="Lynerly Shop" className="banner-item-second" width={500} height={300} />
+        <Image src="/img/banner-item.png" alt="Lynerly Shop" className="banner-item-first" width={600} height={400} />
+        <Image src="/img/banner-item.png" alt="Lynerly Shop" className="banner-item-second" width={600} height={400} />
       </ImageContainer>
       <Description>ДЛЯ ЧЕМОДАНОВ, СУМОК, РЮКЗАКОВ И НЕ ТОЛЬКО</Description>
       <MainButton>СМОТРЕТЬ ПРЕДЛОЖЕНИЯ</MainButton>

@@ -6,8 +6,8 @@ export const breakpoints = {
 };
 
 export const mquery = {
-  mobile: `(min-width: ${breakpoints.mobile}px)`,
-  tablet: `(min-width: ${breakpoints.tablet}px)`,
-  laptop: `(min-width: ${breakpoints.laptop}px)`,
-  desktop: `(min-width: ${breakpoints.desktop}px)`,
+  mobile: `@media (min-width: ${breakpoints.mobile}px)`,
+  tablet: `@media (min-width: ${breakpoints.tablet}px)`,
+  laptop: `@media (min-width: ${breakpoints.laptop}px)`,
+  desktop: `@media (min-width: ${breakpoints.desktop}px)`,
 };
