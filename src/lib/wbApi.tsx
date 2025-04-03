@@ -1,30 +1,15 @@
-const WB_API_URL = "https://content-api.wildberries.ru/content/v2/object/all";
-const WB_API_KEY = process.env.NEXT_PUBLIC_WB_API_KEY;
-
-interface Params {
-  [key: string]: string;
-}
-
-export async function fetchWBData(params: Params = {}) {
+export async function fetchWBData() {
   try {
-    const url = new URL(WB_API_URL);
+    const response = await fetch("/api/wb-api");
 
-    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...(process.env.WB_CLIENT_ID && { "Client-Id": process.env.WB_CLIENT_ID }),
-        ...(WB_API_KEY && { "Api-Key": WB_API_KEY }),
-      },
-    });
-    console.log("responseeeeeeee", response);
+    const data = await response.json();
+    console.log("WBBBBB", data);
 
-    if (!response.ok) throw new Error(`Errors ${response.status}`);
-    console.log("errrrrrror", response);
-
-    return await response.json();
+    return data;
   } catch (error) {
     console.error("Error WB:", error);
     return null;

@@ -1,29 +1,17 @@
-const OZON_API_URL = "https://api.ozon.ru/example-endpoint";
-const OZON_API_KEY = process.env.NEXT_PUBLIC_OZON_API_KEY;
-
-interface Params {
-  [key: string]: string;
-}
-
-export async function fetchOzonData(params: Params = {}) {
+export async function fetchOzonData() {
   try {
-    const url = new URL(OZON_API_URL);
-    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+    const response = await fetch("/api/ozon-api");
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // ...(process.env.OZON_CLIENT_ID && { "Client-Id": process.env.OZON_CLIENT_ID }),
-        ...(OZON_API_KEY && { "Api-Key": OZON_API_KEY }),
-      },
-    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
 
-    if (!response.ok) throw new Error(`Errors ${response.status}`);
+    const data = await response.json();
+    // console.log(data);
 
-    return await response.json();
+    return data;
   } catch (error) {
-    console.error("Error Ozon:", error);
+    console.error("Error OZON:", error);
     return null;
   }
 }
