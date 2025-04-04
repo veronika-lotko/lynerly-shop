@@ -4,6 +4,13 @@ import Image from "next/image";
 import { BannerContainer, BannerTitle, ImageContainer, Description, MainButton, LogoContainer } from "./styles";
 
 const Banner: FC = () => {
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById("products");
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <BannerContainer>
       <LogoContainer>
@@ -15,7 +22,7 @@ const Banner: FC = () => {
         <Image src="/img/banner-item.png" alt="Lynerly Shop" className="banner-item-second" width={600} height={400} />
       </ImageContainer>
       <Description>ДЛЯ ЧЕМОДАНОВ, СУМОК, РЮКЗАКОВ И НЕ ТОЛЬКО</Description>
-      <MainButton>СМОТРЕТЬ ПРЕДЛОЖЕНИЯ</MainButton>
+      <MainButton onClick={scrollToProducts}>СМОТРЕТЬ ПРЕДЛОЖЕНИЯ</MainButton>
     </BannerContainer>
   );
 };

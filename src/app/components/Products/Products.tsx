@@ -2,6 +2,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { fetchOzonData } from "../../../lib/ozonApi";
 import { fetchWBData } from "@/lib/wbApi";
+import { ProductsContainer, ProductCard, LinkContainer } from "./styles";
 
 interface Product {
   id: number;
@@ -78,46 +79,45 @@ const Products: FC = () => {
   };
 
   return (
-    <div className="products">
-      <h1>Ozon Products</h1>
+    <div className="products" id="products">
       {ozonData.length > 0 ? (
-        <ul>
-          {initialProducts.map(({ id, primary_image, offer_id, wbid }) => (
-            <li key={`initial-${id}`} style={{ marginBottom: "20px" }}>
-              <div>{offer_id}</div>
-              <img src={primary_image} alt={`Product ${id}`} width="150" />
-              <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                Ozon: https://www.ozon.ru/product/{id}
-              </a>
-              <br />
-              <a
-                href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WB: https://www.wildberries.ru/catalog/{wbid}
-              </a>
-            </li>
+        <ProductsContainer>
+          {initialProducts.map(({ id, primary_image, wbid }) => (
+            <ProductCard key={`initial-${id}`} style={{ marginBottom: "20px" }}>
+              <img src={primary_image} alt={`Product ${id}`} width="250" />
+              <LinkContainer>
+                <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                  OZON LINK
+                </a>
+                <a
+                  href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WB LINK
+                </a>
+              </LinkContainer>
+            </ProductCard>
           ))}
 
-          {additionalProducts.map(({ id, primary_image, offer_id, wbid }) => (
-            <li key={`additional-${id}`} style={{ marginBottom: "20px" }}>
-              <div>{offer_id}</div>
-              <img src={primary_image} alt={`Product ${id}`} width="150" />
-              <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                Ozon: https://www.ozon.ru/product/{id}
-              </a>
-              <br />
-              <a
-                href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WB: https://www.wildberries.ru/catalog/{wbid}
-              </a>
-            </li>
+          {additionalProducts.map(({ id, primary_image, wbid }) => (
+            <ProductCard key={`additional-${id}`} style={{ marginBottom: "20px" }}>
+              <img src={primary_image} alt={`Product ${id}`} width="250" />
+              <LinkContainer>
+                <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                  OZON LINK
+                </a>
+                <a
+                  href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WB LINK
+                </a>
+              </LinkContainer>
+            </ProductCard>
           ))}
-        </ul>
+        </ProductsContainer>
       ) : (
         <p>Loading...</p>
       )}
