@@ -12,7 +12,7 @@ export async function GET() {
       visibility: "ALL",
     },
     last_id: "",
-    limit: 100,
+    limit: 500,
   };
 
   try {

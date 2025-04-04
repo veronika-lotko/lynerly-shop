@@ -1,16 +1,32 @@
-export async function GET() {
+export async function GET(req: Request) {
   const WB_API_URL = process.env.WB_API_URL;
   const WB_API_KEY = process.env.WB_API_KEY;
-  // const CUSTOMER_ID = process.env.CUSTOMER_ID;
 
-  if (!WB_API_KEY) {
-    return new Response("API key is missing", { status: 400 });
+  if (!WB_API_URL || !WB_API_KEY) {
+    return new Response("API URL or API key is missing", { status: 400 });
   }
 
-  const requestBody = {
+  const { searchParams } = new URL(req.url);
+  const updatedAt = searchParams.get("updatedAt");
+  const nmID = searchParams.get("nmID");
+
+  interface RequestBody {
     settings: {
       cursor: {
-        limit: 100,
+        limit: number;
+        updatedAt?: string;
+        nmID?: number;
+      };
+      filter: {
+        withPhoto: number;
+      };
+    };
+  }
+
+  const requestBody: RequestBody = {
+    settings: {
+      cursor: {
+        limit: 32,
       },
       filter: {
         withPhoto: -1,
@@ -18,11 +34,12 @@ export async function GET() {
     },
   };
 
-  try {
-    if (!WB_API_URL) {
-      return new Response("API URL is missing", { status: 400 });
-    }
+  if (updatedAt && nmID) {
+    requestBody.settings.cursor.updatedAt = updatedAt;
+    requestBody.settings.cursor.nmID = Number(nmID);
+  }
 
+  try {
     const response = await fetch(WB_API_URL, {
       method: "POST",
       headers: {
@@ -43,7 +60,12 @@ export async function GET() {
       vendorCode: item.vendorCode,
     }));
 
-    return new Response(JSON.stringify(mappedData), {
+    const newCursor = {
+      updatedAt: data.cursor?.updatedAt || null,
+      nmID: data.cursor?.nmID || null,
+    };
+
+    return new Response(JSON.stringify({ products: mappedData, cursor: newCursor }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
