@@ -30,12 +30,14 @@ const Products: FC = () => {
   const allProducts = [...initialProducts, ...additionalProducts];
 
   const sliderSettings = {
-    dots: true,
-    arrows: false,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: "0px",
+    arrows: true,
     afterChange: handleSlideChange,
   };
 
@@ -150,11 +152,9 @@ const Products: FC = () => {
             ))
           )}
         </ProductsContainer>
-      ) : (
-        <p>Loading...</p>
-      )}
+      ) : null}
 
-      {hasMore && (
+      {hasMore && !isMobile && (
         <MainButton onClick={loadMore} disabled={loading}>
           {loading ? "Загрузка..." : "Показать больше"}
         </MainButton>

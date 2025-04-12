@@ -10,11 +10,32 @@ export const ProductsContainer = styled.div`
   .slick-slide > div {
     display: flex;
     justify-content: center;
+    height: 100%;
+  }
+  .slick-slide {
+    transform: scale(0.85);
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    z-index: 1;
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .slick-center {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 2;
+    filter: none;
+    pointer-events: all;
+
+    .arrow {
+      width: 400px;
+    }
   }
 
   ${mquery.tablet} {
     .slick-slider {
-      display: none; // скрываем слайдер на таблетах
+      display: none;
     }
 
     display: grid;
