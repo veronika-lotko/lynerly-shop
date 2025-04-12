@@ -1,7 +1,7 @@
 "use client";
 import React, { FC } from "react";
 import Image from "next/image";
-import { BannerContainer, BannerTitle, ImageContainer, Description, MainButton, LogoContainer } from "./styles";
+import { BannerContainer, BannerTitle, ImageContainer, Description, LogoContainer, MainButton } from "./styles";
 
 const Banner: FC = () => {
   const scrollToProducts = () => {

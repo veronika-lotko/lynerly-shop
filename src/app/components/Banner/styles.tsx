@@ -71,33 +71,6 @@ export const Description = styled.p`
   }
 `;
 
-export const MainButton = styled.button`
-  padding: 10px 20px;
-  width: 300px;
-  background-color: var(--green);
-  color: var(--foreground);
-  border-radius: 50px;
-  border: 2px solid var(--foreground);
-  font-size: var(--font-size-standard-sm);
-  font-weight: bold;
-  cursor: pointer;
-  top: 400px;
-  transition: all 0.3s;
-  position: absolute;
-  &:hover {
-    background-color: var(--foreground);
-    color: var(--green);
-  }
-  ${mquery.tablet} {
-    display: flex;
-    align-self: flex-start;
-    font-size: var(--font-size-standard-md);
-  }
-
-  ${mquery.laptop} {
-    top: 440px;
-  }
-`;
 export const ImageContainer = styled.div`
   display: flex;
   opacity: 0.6;
@@ -131,5 +104,33 @@ export const ImageContainer = styled.div`
       max-width: 550px;
       height: 680px;
     }
+  }
+`;
+
+export const MainButton = styled.button`
+  padding: 10px 20px;
+  width: 300px;
+  background-color: var(--green);
+  color: var(--foreground);
+  border-radius: 50px;
+  border: 2px solid var(--foreground);
+  font-size: var(--font-size-standard-sm);
+  font-weight: bold;
+  cursor: pointer;
+  top: 400px;
+  transition: all 0.3s;
+  position: absolute;
+  &:hover {
+    background-color: var(--foreground);
+    color: var(--green);
+  }
+  ${mquery.tablet} {
+    display: flex;
+    align-self: flex-start;
+    font-size: var(--font-size-standard-md);
+  }
+
+  ${mquery.laptop} {
+    top: 440px;
   }
 `;

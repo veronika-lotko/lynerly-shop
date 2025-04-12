@@ -1,8 +1,12 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
+import Slider from "react-slick";
 import { fetchOzonData } from "../../../lib/ozonApi";
 import { fetchWBData } from "@/lib/wbApi";
-import { ProductsContainer, ProductCard, LinkContainer } from "./styles";
+import { ProductsContainer, ProductCard, LinkContainer, MainButton } from "./styles";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useMediaQuery } from "react-responsive";
 
 interface Product {
   id: number;
@@ -10,6 +14,8 @@ interface Product {
   offer_id: string;
   wbid?: number;
 }
+
+const MAX_PRODUCTS = 100;
 
 const Products: FC = () => {
   const [ozonData, setOzonData] = useState<Product[]>([]);
@@ -19,6 +25,26 @@ const Products: FC = () => {
   const [cursor, setCursor] = useState<{ updatedAt?: string; nmID?: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const allProducts = [...initialProducts, ...additionalProducts];
+
+  const sliderSettings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    afterChange: handleSlideChange,
+  };
+
+  function handleSlideChange(currentIndex: number) {
+    const preloadOffset = 4;
+    if (hasMore && currentIndex + preloadOffset >= allProducts.length && allProducts.length < MAX_PRODUCTS) {
+      loadMore();
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,50 +108,56 @@ const Products: FC = () => {
     <div className="products" id="products">
       {ozonData.length > 0 ? (
         <ProductsContainer>
-          {initialProducts.map(({ id, primary_image, wbid }) => (
-            <ProductCard key={`initial-${id}`} style={{ marginBottom: "20px" }}>
-              <img src={primary_image} alt={`Product ${id}`} width="250" />
-              <LinkContainer>
-                <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                  OZON LINK
-                </a>
-                <a
-                  href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  WB LINK
-                </a>
-              </LinkContainer>
-            </ProductCard>
-          ))}
-
-          {additionalProducts.map(({ id, primary_image, wbid }) => (
-            <ProductCard key={`additional-${id}`} style={{ marginBottom: "20px" }}>
-              <img src={primary_image} alt={`Product ${id}`} width="250" />
-              <LinkContainer>
-                <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                  OZON LINK
-                </a>
-                <a
-                  href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  WB LINK
-                </a>
-              </LinkContainer>
-            </ProductCard>
-          ))}
+          {isMobile ? (
+            <Slider {...sliderSettings}>
+              {allProducts.map(({ id, primary_image, wbid }) => (
+                <div key={`product-${id}`}>
+                  <ProductCard>
+                    <img src={primary_image} alt={`Product ${id}`} width="250" />
+                    <LinkContainer>
+                      <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                        OZON LINK
+                      </a>
+                      <a
+                        href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        WB LINK
+                      </a>
+                    </LinkContainer>
+                  </ProductCard>
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            allProducts.map(({ id, primary_image, wbid }) => (
+              <ProductCard key={`product-${id}`}>
+                <img src={primary_image} alt={`Product ${id}`} width="250" />
+                <LinkContainer>
+                  <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                    OZON LINK
+                  </a>
+                  <a
+                    href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WB LINK
+                  </a>
+                </LinkContainer>
+              </ProductCard>
+            ))
+          )}
         </ProductsContainer>
       ) : (
         <p>Loading...</p>
       )}
 
       {hasMore && (
-        <button onClick={loadMore} disabled={loading}>
+        <MainButton onClick={loadMore} disabled={loading}>
           {loading ? "Загрузка..." : "Показать больше"}
-        </button>
+        </MainButton>
       )}
     </div>
   );
