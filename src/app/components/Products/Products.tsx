@@ -6,6 +6,7 @@ import { fetchWBData } from "@/lib/wbApi";
 import { ProductsContainer, ProductCard, LinkContainer, MainButton } from "./styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useMediaQuery } from "react-responsive";
 import MarketButton from "./MarketButton";
 import SkeletonCard from "./SkeletonCard";
 
@@ -26,9 +27,10 @@ const Products: FC = () => {
   const [cursor, setCursor] = useState<{ updatedAt?: string; nmID?: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isSmall, setIsSmall] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isSmall = useMediaQuery({ maxWidth: 768, minWidth: 640 });
+  const isTablet = useMediaQuery({ maxWidth: 1068, minWidth: 768 });
+  const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
 
   const allProducts = [...initialProducts, ...additionalProducts];
 
@@ -50,14 +52,6 @@ const Products: FC = () => {
       loadMore();
     }
   }
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsMobile(window.matchMedia("(max-width: 640px)").matches);
-      setIsSmall(window.matchMedia("(max-width: 768px) and (min-width: 640px)").matches);
-      setIsTablet(window.matchMedia("(max-width: 1068px) and (min-width: 768px)").matches);
-    }
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,6 +119,10 @@ const Products: FC = () => {
     return value;
   };
 
+  const handleImageLoad = (id: number) => {
+    setImageLoaded((prev) => ({ ...prev, [id]: true }));
+  };
+
   return (
     <div className="products" id="products">
       {ozonData.length > 0 && initialWBData.length > 0 ? (
@@ -134,8 +132,15 @@ const Products: FC = () => {
               <Slider {...sliderSettings}>
                 {allProducts.map(({ id, primary_image, wbid }) => (
                   <div key={`product-${id}`}>
-                    <ProductCard>
-                      <img src={primary_image} alt={`Product ${id}`} width="250" />
+                    <ProductCard key={`product-${id}`}>
+                      {!imageLoaded[id] && <SkeletonCard />}
+                      <img
+                        src={primary_image}
+                        alt={`Product ${id}`}
+                        width="250"
+                        style={{ display: imageLoaded[id] ? "block" : "none" }}
+                        onLoad={() => handleImageLoad(id)}
+                      />
                       <p>ЗАКАЗАТЬ</p>
                       <LinkContainer>
                         <MarketButton market="ozon">
@@ -160,7 +165,14 @@ const Products: FC = () => {
             ) : (
               allProducts.map(({ id, primary_image, wbid }) => (
                 <ProductCard key={`product-${id}`}>
-                  <img src={primary_image} alt={`Product ${id}`} width="250" />
+                  {!imageLoaded[id] && <SkeletonCard />}
+                  <img
+                    src={primary_image}
+                    alt={`Product ${id}`}
+                    width="250"
+                    style={{ display: imageLoaded[id] ? "block" : "none" }}
+                    onLoad={() => handleImageLoad(id)}
+                  />
                   <p>ЗАКАЗАТЬ</p>
                   <LinkContainer>
                     <MarketButton market="ozon">

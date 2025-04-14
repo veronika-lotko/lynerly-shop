@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const SkeletonWrapper = styled.div`
-  width: 250px;
-  height: 350px;
-  margin: auto;
+  width: 200px;
+  height: 270px;
+  margin: 20px auto;
   background-color: #e0e0e0;
   border-radius: 8px;
   animation: pulse 2.5s infinite;
@@ -53,7 +53,7 @@ const SkeletonCard = () => {
     <SkeletonWrapper>
       <SkeletonLine />
       <SkeletonLine />
-      <SkeletonLine />
+      {/* <SkeletonLine /> */}
     </SkeletonWrapper>
   );
 };
