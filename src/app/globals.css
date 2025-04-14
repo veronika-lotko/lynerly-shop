@@ -4,7 +4,8 @@
   --background: #000000;
   --foreground: #ffffff;
   --green: rgba(83, 109, 72, 1);
-  --wbcolor: rgba(255, 0, 158, 1);
+  --wbcolor: rgba(240, 26, 138, 1);
+  --wbcolor-gr: linear-gradient(90deg, rgba(125, 20, 127, 1) 0%, rgba(240, 26, 138, 1) 100%)
   --ozoncolor: rgba(41, 98, 255, 1);
   --font: 'Jost', sans-serif;
   --font-size-standard-sm: 16px;
@@ -21,7 +22,8 @@
     --background: #000000;
     --foreground: #ffffff;
     --green: rgba(83, 109, 72, 1);
-    --wbcolor: rgba(255, 0, 158, 1);
+    --wbcolor: rgba(240, 26, 138, 1);
+    --wbcolor-gr: linear-gradient(90deg, rgba(125, 20, 127, 1) 0%, rgba(240, 26, 138, 1) 100%);
     --ozoncolor: rgba(41, 98, 255, 1);
     --font: 'Jost', sans-serif;
     --font-size-standard-sm: 20px;

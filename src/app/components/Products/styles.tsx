@@ -2,15 +2,21 @@ import { mquery } from "@/constants/breakpoints";
 import styled from "styled-components";
 
 export const ProductsContainer = styled.div`
+  .slick-track {
+    /* min-height: 500px; */
+    margin-top: 20px;
+  }
+  .slick-list {
+    align-items: center;
+  }
   .slick-slider {
-    width: 100%;
+    /* width: 100%; */
     overflow: hidden;
   }
 
   .slick-slide > div {
     display: flex;
     justify-content: center;
-    height: 100%;
   }
   .slick-slide {
     transform: scale(0.85);
@@ -22,9 +28,9 @@ export const ProductsContainer = styled.div`
   }
 
   .slick-center {
-    transform: scale(1);
+    /* transform: scale(1.4); */
     opacity: 1;
-    z-index: 2;
+    z-index: 1;
     filter: none;
     pointer-events: all;
 
@@ -33,15 +39,48 @@ export const ProductsContainer = styled.div`
     }
   }
 
+  .slick-prev,
+  .slick-next {
+    z-index: 3;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 50px;
+    color: white;
+  }
+
+  .slick-prev {
+    left: 15px;
+  }
+
+  .slick-next {
+    right: 15px;
+  }
+
+  ${mquery.small} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+  }
+
   ${mquery.tablet} {
+    max-width: 1280px;
+    margin: auto;
     .slick-slider {
       display: none;
     }
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 0 20px;
   }
 
   ${mquery.desktop} {
@@ -53,13 +92,19 @@ export const ProductCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 300px;
+  width: 250px;
+  height: 420px;
   margin: 10px auto;
+  background-color: var(--foreground);
+  border-radius: 20px;
 
+  p {
+    margin-top: 10px;
+    color: var(--background);
+  }
   img {
-    width: 100%;
+    margin-top: 15px;
+    width: 90%;
     height: auto;
     object-fit: contain;
     border-radius: 12px;
@@ -68,22 +113,10 @@ export const ProductCard = styled.div`
 
 export const LinkContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 10px;
   margin-top: 10px;
   width: 100%;
-  max-width: 250px;
-
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    color: var(--foreground);
-    transition: color 0.2s ease-in-out;
-
-    &:hover {
-      color: var(--green);
-    }
-  }
 `;
 
 export const MainButton = styled.button`
