@@ -1,8 +1,8 @@
 import Banner from "./components/Banner/Banner";
-import Contact from "./components/Contact";
+import Contact from "./components/Contact/Contact";
 import Products from "./components/Products/Products";
 // import Products from "./components/Products";
-import Reviews from "./components/Reviews";
+import Reviews from "./components/Reviews/Reviews";
 
 export default function Home() {
   return (

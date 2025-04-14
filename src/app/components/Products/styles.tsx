@@ -3,14 +3,12 @@ import styled from "styled-components";
 
 export const ProductsContainer = styled.div`
   .slick-track {
-    /* min-height: 500px; */
     margin-top: 20px;
   }
   .slick-list {
     align-items: center;
   }
   .slick-slider {
-    /* width: 100%; */
     overflow: hidden;
   }
 
