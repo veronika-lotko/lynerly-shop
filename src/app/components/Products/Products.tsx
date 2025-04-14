@@ -6,7 +6,6 @@ import { fetchWBData } from "@/lib/wbApi";
 import { ProductsContainer, ProductCard, LinkContainer, MainButton } from "./styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useMediaQuery } from "react-responsive";
 import MarketButton from "./MarketButton";
 import SkeletonCard from "./SkeletonCard";
 
@@ -27,9 +26,9 @@ const Products: FC = () => {
   const [cursor, setCursor] = useState<{ updatedAt?: string; nmID?: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const isMobile = useMediaQuery({ maxWidth: 640 });
-  const isSmall = useMediaQuery({ maxWidth: 768, minWidth: 640 });
-  const isTablet = useMediaQuery({ maxWidth: 1068, minWidth: 768 });
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSmall, setIsSmall] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   const allProducts = [...initialProducts, ...additionalProducts];
 
@@ -51,6 +50,14 @@ const Products: FC = () => {
       loadMore();
     }
   }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMobile(window.matchMedia("(max-width: 640px)").matches);
+      setIsSmall(window.matchMedia("(max-width: 768px) and (min-width: 640px)").matches);
+      setIsTablet(window.matchMedia("(max-width: 1068px) and (min-width: 768px)").matches);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
