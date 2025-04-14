@@ -17,7 +17,7 @@ interface Product {
   wbid?: number;
 }
 
-const MAX_PRODUCTS = 100;
+const MAX_PRODUCTS = 16;
 
 const Products: FC = () => {
   const [ozonData, setOzonData] = useState<Product[]>([]);
@@ -28,6 +28,8 @@ const Products: FC = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isSmall = useMediaQuery({ maxWidth: 768, minWidth: 640 });
+  const isTablet = useMediaQuery({ maxWidth: 1068, minWidth: 768 });
 
   const allProducts = [...initialProducts, ...additionalProducts];
 
@@ -89,7 +91,7 @@ const Products: FC = () => {
     setLoading(true);
     const { products, cursor: newCursor } = await fetchWBData(cursor);
 
-    if (products.length < 32) {
+    if (products.length < 16) {
       setHasMore(false);
     }
 
@@ -108,74 +110,85 @@ const Products: FC = () => {
     setLoading(false);
   };
 
+  const skeletonLenght = () => {
+    let value = 4;
+    if (isMobile) value = 1;
+    if (isSmall) value = 2;
+    if (isTablet) value = 3;
+    return value;
+  };
+
   return (
     <div className="products" id="products">
       {ozonData.length > 0 && initialWBData.length > 0 ? (
-        <ProductsContainer>
-          {isMobile ? (
-            <Slider {...sliderSettings}>
-              {allProducts.map(({ id, primary_image, wbid }) => (
-                <div key={`product-${id}`}>
-                  <ProductCard>
-                    <img src={primary_image} alt={`Product ${id}`} width="250" />
-                    <p>ЗАКАЗАТЬ</p>
-                    <LinkContainer>
-                      <MarketButton market="ozon">
-                        <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                          OZON
-                        </a>
-                      </MarketButton>
-                      <MarketButton market="wb">
-                        <a
-                          href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          WB
-                        </a>
-                      </MarketButton>
-                    </LinkContainer>
-                  </ProductCard>
-                </div>
-              ))}
-            </Slider>
-          ) : (
-            allProducts.map(({ id, primary_image, wbid }) => (
-              <ProductCard key={`product-${id}`}>
-                <img src={primary_image} alt={`Product ${id}`} width="250" />
-                <p>ЗАКАЗАТЬ</p>
-                <LinkContainer>
-                  <MarketButton market="ozon">
-                    <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                      OZON
-                    </a>
-                  </MarketButton>
-                  <MarketButton market="wb">
-                    <a
-                      href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      WB
-                    </a>
-                  </MarketButton>
-                </LinkContainer>
-              </ProductCard>
-            ))
-          )}
-        </ProductsContainer>
+        <>
+          <ProductsContainer>
+            {isMobile ? (
+              <Slider {...sliderSettings}>
+                {allProducts.map(({ id, primary_image, wbid }) => (
+                  <div key={`product-${id}`}>
+                    <ProductCard>
+                      <img src={primary_image} alt={`Product ${id}`} width="250" />
+                      <p>ЗАКАЗАТЬ</p>
+                      <LinkContainer>
+                        <MarketButton market="ozon">
+                          <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                            OZON
+                          </a>
+                        </MarketButton>
+                        <MarketButton market="wb">
+                          <a
+                            href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            WB
+                          </a>
+                        </MarketButton>
+                      </LinkContainer>
+                    </ProductCard>
+                  </div>
+                ))}
+              </Slider>
+            ) : (
+              allProducts.map(({ id, primary_image, wbid }) => (
+                <ProductCard key={`product-${id}`}>
+                  <img src={primary_image} alt={`Product ${id}`} width="250" />
+                  <p>ЗАКАЗАТЬ</p>
+                  <LinkContainer>
+                    <MarketButton market="ozon">
+                      <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                        OZON
+                      </a>
+                    </MarketButton>
+                    <MarketButton market="wb">
+                      <a
+                        href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        WB
+                      </a>
+                    </MarketButton>
+                  </LinkContainer>
+                </ProductCard>
+              ))
+            )}
+          </ProductsContainer>
+          <div className="button-container">
+            {hasMore && !isMobile && (
+              <MainButton onClick={loadMore} disabled={loading}>
+                {loading ? "Загрузка..." : "Показать больше"}
+              </MainButton>
+            )}
+          </div>
+        </>
       ) : (
         <ProductsContainer>
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: skeletonLenght() }).map((_, i) => (
             <SkeletonCard key={`skeleton-${i}`} />
           ))}
         </ProductsContainer>
-      )}
-
-      {hasMore && !isMobile && (
-        <MainButton onClick={loadMore} disabled={loading}>
-          {loading ? "Загрузка..." : "Показать больше"}
-        </MainButton>
       )}
     </div>
   );

@@ -73,9 +73,6 @@ export const ProductsContainer = styled.div`
   ${mquery.tablet} {
     max-width: 1280px;
     margin: auto;
-    .slick-slider {
-      display: none;
-    }
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -84,6 +81,11 @@ export const ProductsContainer = styled.div`
   ${mquery.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  /* .button-container {
+    margin: auto;
+    display: flex;
+  } */
 `;
 
 export const ProductCard = styled.div`

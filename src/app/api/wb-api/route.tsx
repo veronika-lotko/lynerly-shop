@@ -26,7 +26,7 @@ export async function GET(req: Request) {
   const requestBody: RequestBody = {
     settings: {
       cursor: {
-        limit: 32,
+        limit: 16,
       },
       filter: {
         withPhoto: -1,
