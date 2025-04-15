@@ -102,16 +102,17 @@ export const MainButton = styled.button`
   background-color: var(--green);
   color: var(--foreground);
   border-radius: 50px;
-  border: 2px solid var(--foreground);
+  border: 1px solid var(--foreground);
   font-size: var(--font-size-standard-sm);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
   display: flex;
-  margin: 20px auto;
+  margin: 30px auto;
   align-items: center;
   text-transform: uppercase;
   text-align: center;
+  height: 60px;
 
   &:hover {
     background-color: var(--foreground);
@@ -124,5 +125,30 @@ export const MainButton = styled.button`
 
   ${mquery.laptop} {
     top: 440px;
+  }
+`;
+
+export const Supplies = styled.div`
+  margin: 30px auto;
+  max-width: 920px;
+  padding: 20px;
+  p {
+    font-size: var(--font-size-standard-md);
+
+    .wb {
+      color: var(--wbcolor);
+    }
+
+    .ozon {
+      color: var(--ozoncolor);
+    }
+  }
+
+  .button-container {
+    display: flex;
+    /* justify-content: space-evenly; */
+    margin: 20px auto;
+    justify-content: center;
+    gap: 20px;
   }
 `;

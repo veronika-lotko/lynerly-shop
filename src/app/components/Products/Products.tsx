@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { fetchOzonData } from "../../../lib/ozonApi";
 import { fetchWBData } from "@/lib/wbApi";
-import { ProductsContainer, ProductCard, LinkContainer, MainButton } from "./styles";
+import { ProductsContainer, ProductCard, LinkContainer, MainButton, Supplies } from "./styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useMediaQuery } from "react-responsive";
@@ -143,12 +143,12 @@ const Products: FC = () => {
                       />
                       <p>ЗАКАЗАТЬ</p>
                       <LinkContainer>
-                        <MarketButton market="ozon">
+                        <MarketButton market="ozon" border="visible">
                           <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
                             OZON
                           </a>
                         </MarketButton>
-                        <MarketButton market="wb">
+                        <MarketButton market="wb" border="visible">
                           <a
                             href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
                             target="_blank"
@@ -175,12 +175,12 @@ const Products: FC = () => {
                   />
                   <p>ЗАКАЗАТЬ</p>
                   <LinkContainer>
-                    <MarketButton market="ozon">
+                    <MarketButton market="ozon" border="visible">
                       <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
                         OZON
                       </a>
                     </MarketButton>
-                    <MarketButton market="wb">
+                    <MarketButton market="wb" border="visible">
                       <a
                         href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
                         target="_blank"
@@ -209,6 +209,27 @@ const Products: FC = () => {
           ))}
         </ProductsContainer>
       )}
+      <Supplies className="buttons-section">
+        <p>
+          СПИСОК ВСЕХ ТОВАРОВ ДОСТУПЕН НА <span className="wb">WILDBERRIES</span> И <span className="ozon">OZON</span>
+        </p>
+        <div className="button-container ">
+          <MarketButton market="ozon" size="lg">
+            <a
+              href={`https://www.ozon.ru/seller/lynerly-297592/products/?miniapp=seller_297592`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              OZON
+            </a>
+          </MarketButton>
+          <MarketButton market="wb" size="lg">
+            <a href={`https://www.wildberries.ru/brands/lynerly`} target="_blank" rel="noopener noreferrer">
+              WB
+            </a>
+          </MarketButton>
+        </div>
+      </Supplies>
     </div>
   );
 };

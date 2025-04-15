@@ -1,5 +1,6 @@
 import { mquery } from "@/constants/breakpoints";
 import styled from "styled-components";
+import { jump } from "@/animations/animations";
 
 export const BannerContainer = styled.div`
   margin: 20px;
@@ -120,6 +121,8 @@ export const MainButton = styled.button`
   top: 400px;
   transition: all 0.3s;
   position: absolute;
+  animation: ${jump} 1.2s infinite ease-in-out;
+
   &:hover {
     background-color: var(--foreground);
     color: var(--green);

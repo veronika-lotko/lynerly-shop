@@ -1,34 +1,24 @@
 import React, { FC } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 interface ButtonProps {
   market: string;
   children?: React.ReactNode;
+  size?: string;
+  border?: string;
 }
 
-const pulse = keyframes`
-  0% {
-    transform: scale(0.95);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.95);
-  }
-`;
-
 const StyledButton = styled.button<ButtonProps>`
-  width: 100px;
-  height: 50px;
-  border: 1px solid var(--foreground);
+  width: ${(props) => (props.size === "lg" ? "150px" : "100px")};
+  height: ${(props) => (props.size === "lg" ? "60px" : "50px")};
+
+  border: ${(props) => (props.border === "visible" ? "1px solid var(--foreground)" : "none")};
   border-radius: 50px;
   z-index: 100;
   background: ${(props) => (props.market === "ozon" ? "var(--ozoncolor)" : "var(--wbcolor)")};
   transition: color 0.2s ease-in-out, background 0.3s ease-in-out, transform 0.2s ease-in-out;
   cursor: pointer;
   padding: 0;
-  animation: ${pulse} infinite 2s ease-out;
   box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.5);
   a {
     display: flex;
@@ -39,6 +29,7 @@ const StyledButton = styled.button<ButtonProps>`
     color: var(--foreground);
     width: 100%;
     height: 100%;
+    font-size: ${(props) => (props.size === "lg" ? "var(--font-size-standard-md)" : "var(--font-size-standard-xs)")};
   }
 
   &:hover {
@@ -52,8 +43,12 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-const MarketButton: FC<ButtonProps> = ({ market, children }) => {
-  return <StyledButton market={market}>{children}</StyledButton>;
+const MarketButton: FC<ButtonProps> = ({ market, children, size, border }) => {
+  return (
+    <StyledButton market={market} size={size} border={border}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default MarketButton;
