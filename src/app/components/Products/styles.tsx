@@ -15,12 +15,10 @@ export const ProductsContainer = styled.div`
   .slick-slider {
     overflow: hidden;
   }
-
   .slick-slide > div {
     display: flex;
     justify-content: center;
   }
-
   .slick-prev,
   .slick-next {
     z-index: 3;
@@ -32,36 +30,29 @@ export const ProductsContainer = styled.div`
     justify-content: center;
     color: white;
   }
-
   .slick-prev:before,
   .slick-next:before {
     font-size: 60px;
     color: white;
   }
-
   .slick-prev {
     left: 15px;
   }
-
   .slick-next {
     right: 15px;
   }
-
   ${mquery.small} {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 0 20px;
   }
-
   ${mquery.tablet} {
     max-width: 1280px;
     margin: auto;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-
   ${mquery.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -122,23 +113,19 @@ export const MainButton = styled.button`
   ${mquery.tablet} {
     font-size: var(--font-size-standard-md);
   }
-
-  ${mquery.laptop} {
-    top: 440px;
-  }
 `;
 
 export const Supplies = styled.div`
   margin: 30px auto;
   max-width: 920px;
   padding: 20px;
+
   p {
     font-size: var(--font-size-standard-md);
 
     .wb {
       color: var(--wbcolor);
     }
-
     .ozon {
       color: var(--ozoncolor);
     }
@@ -146,7 +133,6 @@ export const Supplies = styled.div`
 
   .button-container {
     display: flex;
-    /* justify-content: space-evenly; */
     margin: 20px auto;
     justify-content: center;
     gap: 20px;

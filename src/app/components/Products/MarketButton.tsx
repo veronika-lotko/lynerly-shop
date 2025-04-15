@@ -11,7 +11,6 @@ interface ButtonProps {
 const StyledButton = styled.button<ButtonProps>`
   width: ${(props) => (props.size === "lg" ? "150px" : "100px")};
   height: ${(props) => (props.size === "lg" ? "60px" : "50px")};
-
   border: ${(props) => (props.border === "visible" ? "1px solid var(--foreground)" : "none")};
   border-radius: 50px;
   z-index: 100;
@@ -20,6 +19,7 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 0;
   box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.5);
+
   a {
     display: flex;
     align-items: center;

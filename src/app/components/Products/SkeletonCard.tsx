@@ -31,31 +31,8 @@ const SkeletonWrapper = styled.div`
   }
 `;
 
-const SkeletonLine = styled.div`
-  height: 16px;
-  background-color: #d6d6d6;
-  border-radius: 4px;
-  animation: pulse 2.5s infinite;
-
-  &:nth-child(1) {
-    width: 80%;
-  }
-  &:nth-child(2) {
-    width: 60%;
-  }
-  &:nth-child(3) {
-    width: 90%;
-  }
-`;
-
 const SkeletonCard = () => {
-  return (
-    <SkeletonWrapper>
-      <SkeletonLine />
-      <SkeletonLine />
-      {/* <SkeletonLine /> */}
-    </SkeletonWrapper>
-  );
+  return <SkeletonWrapper />;
 };
 
 export default SkeletonCard;

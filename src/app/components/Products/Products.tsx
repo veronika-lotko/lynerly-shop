@@ -27,12 +27,19 @@ const Products: FC = () => {
   const [cursor, setCursor] = useState<{ updatedAt?: string; nmID?: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
   const isMobile = useMediaQuery({ maxWidth: 640 });
   const isSmall = useMediaQuery({ maxWidth: 768, minWidth: 640 });
   const isTablet = useMediaQuery({ maxWidth: 1068, minWidth: 768 });
-  const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
 
   const allProducts = [...initialProducts, ...additionalProducts];
+
+  const handleSlideChange = (currentIndex: number) => {
+    const preloadOffset = 4;
+    if (hasMore && currentIndex + preloadOffset >= allProducts.length && allProducts.length < MAX_PRODUCTS) {
+      loadMore();
+    }
+  };
 
   const sliderSettings = {
     dots: false,
@@ -46,34 +53,27 @@ const Products: FC = () => {
     afterChange: handleSlideChange,
   };
 
-  function handleSlideChange(currentIndex: number) {
-    const preloadOffset = 4;
-    if (hasMore && currentIndex + preloadOffset >= allProducts.length && allProducts.length < MAX_PRODUCTS) {
-      loadMore();
-    }
-  }
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchOzon = async () => {
       const ozonResponse = await fetchOzonData();
       setOzonData(ozonResponse);
     };
-    fetchData();
+    fetchOzon();
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchWB = async () => {
       setLoading(true);
       const { products, cursor: newCursor } = await fetchWBData();
       setInitialWBData(products);
       setCursor(newCursor);
       setLoading(false);
     };
-    fetchData();
+    fetchWB();
   }, []);
 
   useEffect(() => {
-    if (ozonData.length === 0 || initialWBData.length === 0) return;
+    if (!ozonData.length || !initialWBData.length) return;
 
     const wbMap = new Map(initialWBData.map((item) => [item.vendorCode, item.wbid]));
     const matched = ozonData
@@ -92,9 +92,7 @@ const Products: FC = () => {
     setLoading(true);
     const { products, cursor: newCursor } = await fetchWBData(cursor);
 
-    if (products.length < 16) {
-      setHasMore(false);
-    }
+    if (products.length < 16) setHasMore(false);
 
     const wbMap = new Map(products.map((item) => [item.vendorCode, item.wbid]));
     const newMatched = ozonData
@@ -111,12 +109,11 @@ const Products: FC = () => {
     setLoading(false);
   };
 
-  const skeletonLenght = () => {
-    let value = 4;
-    if (isMobile) value = 1;
-    if (isSmall) value = 2;
-    if (isTablet) value = 3;
-    return value;
+  const skeletonLength = () => {
+    if (isMobile) return 1;
+    if (isSmall) return 2;
+    if (isTablet) return 3;
+    return 4;
   };
 
   const handleImageLoad = (id: number) => {
@@ -125,14 +122,14 @@ const Products: FC = () => {
 
   return (
     <div className="products" id="products">
-      {ozonData.length > 0 && initialWBData.length > 0 ? (
+      {ozonData.length && initialWBData.length ? (
         <>
           <ProductsContainer>
             {isMobile ? (
               <Slider {...sliderSettings}>
                 {allProducts.map(({ id, primary_image, wbid }) => (
                   <div key={`product-${id}`}>
-                    <ProductCard key={`product-${id}`}>
+                    <ProductCard>
                       {!imageLoaded[id] && <SkeletonCard />}
                       <img
                         src={primary_image}
@@ -204,7 +201,7 @@ const Products: FC = () => {
         </>
       ) : (
         <ProductsContainer>
-          {Array.from({ length: skeletonLenght() }).map((_, i) => (
+          {Array.from({ length: skeletonLength() }).map((_, i) => (
             <SkeletonCard key={`skeleton-${i}`} />
           ))}
         </ProductsContainer>
@@ -213,10 +210,10 @@ const Products: FC = () => {
         <p>
           СПИСОК ВСЕХ ТОВАРОВ ДОСТУПЕН НА <span className="wb">WILDBERRIES</span> И <span className="ozon">OZON</span>
         </p>
-        <div className="button-container ">
+        <div className="button-container">
           <MarketButton market="ozon" size="lg">
             <a
-              href={`https://www.ozon.ru/seller/lynerly-297592/products/?miniapp=seller_297592`}
+              href="https://www.ozon.ru/seller/lynerly-297592/products/?miniapp=seller_297592"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -224,7 +221,7 @@ const Products: FC = () => {
             </a>
           </MarketButton>
           <MarketButton market="wb" size="lg">
-            <a href={`https://www.wildberries.ru/brands/lynerly`} target="_blank" rel="noopener noreferrer">
+            <a href="https://www.wildberries.ru/brands/lynerly" target="_blank" rel="noopener noreferrer">
               WB
             </a>
           </MarketButton>
