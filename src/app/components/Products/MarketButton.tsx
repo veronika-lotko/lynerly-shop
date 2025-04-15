@@ -6,31 +6,30 @@ interface ButtonProps {
   children?: React.ReactNode;
 }
 
-// Анимация появления — лёгкий подъём и пульсация
-const popIn = keyframes`
+const pulse = keyframes`
   0% {
-    transform: scale(1);
+    transform: scale(0.95);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1);
   }
   100% {
-    transform: scale(1);
+    transform: scale(0.95);
   }
 `;
 
 const StyledButton = styled.button<ButtonProps>`
   width: 100px;
   height: 50px;
-  border: 1px solid var(--background);
+  border: 1px solid var(--foreground);
   border-radius: 50px;
   z-index: 100;
-  background: ${(props) => (props.market === "ozon" ? "var(--ozoncolor)" : "var(--wbcolor-gr)")};
+  background: ${(props) => (props.market === "ozon" ? "var(--ozoncolor)" : "var(--wbcolor)")};
   transition: color 0.2s ease-in-out, background 0.3s ease-in-out, transform 0.2s ease-in-out;
   cursor: pointer;
   padding: 0;
-  animation: ${popIn} infinite 1.6s ease-out;
-
+  animation: ${pulse} infinite 2s ease-out;
+  box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.5);
   a {
     display: flex;
     align-items: center;
@@ -45,6 +44,7 @@ const StyledButton = styled.button<ButtonProps>`
   &:hover {
     background: var(--foreground);
     transform: translateY(-3px);
+    border: ${(props) => (props.market === "ozon" ? "2px solid var(--ozoncolor)" : "2px solid var(--wbcolor)")};
 
     a {
       color: ${(props) => (props.market === "ozon" ? "var(--ozoncolor)" : "var(--wbcolor)")};

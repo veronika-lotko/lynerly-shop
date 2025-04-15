@@ -113,7 +113,7 @@ export const MainButton = styled.button`
   background-color: var(--green);
   color: var(--foreground);
   border-radius: 50px;
-  border: 2px solid var(--foreground);
+  border: 1px solid var(--foreground);
   font-size: var(--font-size-standard-sm);
   font-weight: bold;
   cursor: pointer;

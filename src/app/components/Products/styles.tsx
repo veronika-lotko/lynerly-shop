@@ -72,7 +72,7 @@ export const ProductCard = styled.div`
   flex-direction: column;
   align-items: center;
   width: 250px;
-  height: 420px;
+  height: 425px;
   margin: 10px auto;
   background-color: var(--foreground);
   border-radius: 20px;
@@ -93,8 +93,7 @@ export const ProductCard = styled.div`
 export const LinkContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  gap: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   width: 100%;
 `;
 
