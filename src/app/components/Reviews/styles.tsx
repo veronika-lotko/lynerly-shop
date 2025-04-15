@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ReviewsWrapper = styled.div`
-  margin: 20px 0;
+  margin: 30px 0;
 
   hr {
     background-color: var(--green);

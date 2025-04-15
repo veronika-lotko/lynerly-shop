@@ -211,6 +211,11 @@ const Products: FC = () => {
           СПИСОК ВСЕХ ТОВАРОВ ДОСТУПЕН НА <span className="wb">WILDBERRIES</span> И <span className="ozon">OZON</span>
         </p>
         <div className="button-container">
+          <MarketButton market="wb" size="lg">
+            <a href="https://www.wildberries.ru/brands/lynerly" target="_blank" rel="noopener noreferrer">
+              WB
+            </a>
+          </MarketButton>
           <MarketButton market="ozon" size="lg">
             <a
               href="https://www.ozon.ru/seller/lynerly-297592/products/?miniapp=seller_297592"
@@ -218,11 +223,6 @@ const Products: FC = () => {
               rel="noopener noreferrer"
             >
               OZON
-            </a>
-          </MarketButton>
-          <MarketButton market="wb" size="lg">
-            <a href="https://www.wildberries.ru/brands/lynerly" target="_blank" rel="noopener noreferrer">
-              WB
             </a>
           </MarketButton>
         </div>
