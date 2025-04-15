@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 export const ProductsContainer = styled.div`
   .slick-track {
-    margin-top: 20px;
+    margin-top: 50px;
+
+    ${mquery.mobile} {
+      margin-top: 20px;
+    }
   }
   .slick-list {
     align-items: center;
@@ -15,26 +19,6 @@ export const ProductsContainer = styled.div`
   .slick-slide > div {
     display: flex;
     justify-content: center;
-  }
-  .slick-slide {
-    transform: scale(0.85);
-    opacity: 0.4;
-    transition: all 0.3s ease;
-    z-index: 1;
-    filter: blur(2px);
-    pointer-events: none;
-  }
-
-  .slick-center {
-    /* transform: scale(1.4); */
-    opacity: 1;
-    z-index: 1;
-    filter: none;
-    pointer-events: all;
-
-    .arrow {
-      width: 400px;
-    }
   }
 
   .slick-prev,
@@ -51,7 +35,7 @@ export const ProductsContainer = styled.div`
 
   .slick-prev:before,
   .slick-next:before {
-    font-size: 50px;
+    font-size: 60px;
     color: white;
   }
 
@@ -81,11 +65,6 @@ export const ProductsContainer = styled.div`
   ${mquery.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
-
-  /* .button-container {
-    margin: auto;
-    display: flex;
-  } */
 `;
 
 export const ProductCard = styled.div`

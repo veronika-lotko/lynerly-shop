@@ -2,7 +2,7 @@ import { mquery } from "@/constants/breakpoints";
 import styled from "styled-components";
 
 export const BannerContainer = styled.div`
-  margin-top: 20px;
+  margin: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
