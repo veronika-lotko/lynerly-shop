@@ -16,9 +16,6 @@ interface Product {
   offer_id: string;
   wbid?: number;
 }
-
-const MAX_PRODUCTS = 16;
-
 const Products: FC = () => {
   const [ozonData, setOzonData] = useState<Product[]>([]);
   const [initialWBData, setInitialWBData] = useState<{ wbid: number; vendorCode: string }[]>([]);
@@ -36,7 +33,8 @@ const Products: FC = () => {
 
   const handleSlideChange = (currentIndex: number) => {
     const preloadOffset = 4;
-    if (hasMore && currentIndex + preloadOffset >= allProducts.length && allProducts.length < MAX_PRODUCTS) {
+
+    if (isMobile && hasMore && currentIndex + preloadOffset >= allProducts.length) {
       loadMore();
     }
   };
