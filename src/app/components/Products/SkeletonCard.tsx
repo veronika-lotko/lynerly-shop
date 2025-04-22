@@ -4,7 +4,9 @@ interface SkeletonProps {
   isFullCard?: boolean;
 }
 
-const SkeletonWrapper = styled.div<SkeletonProps>`
+const SkeletonWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isFullCard",
+})<SkeletonProps>`
   width: ${(props) => (props.isFullCard ? "250px" : "200px")};
   height: ${(props) => (props.isFullCard ? "425px" : "270px")};
   margin: 20px auto;
