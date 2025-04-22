@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-const SkeletonWrapper = styled.div`
-  width: 200px;
-  height: 270px;
+interface SkeletonProps {
+  isFullCard?: boolean;
+}
+
+const SkeletonWrapper = styled.div<SkeletonProps>`
+  width: ${(props) => (props.isFullCard ? "250px" : "200px")};
+  height: ${(props) => (props.isFullCard ? "425px" : "270px")};
   margin: 20px auto;
   background-color: #e0e0e0;
   border-radius: 8px;
@@ -31,8 +35,8 @@ const SkeletonWrapper = styled.div`
   }
 `;
 
-const SkeletonCard = () => {
-  return <SkeletonWrapper />;
+const SkeletonCard: React.FC<SkeletonProps> = ({ isFullCard = false }) => {
+  return <SkeletonWrapper isFullCard={isFullCard} />;
 };
 
 export default SkeletonCard;

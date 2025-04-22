@@ -25,17 +25,20 @@ const Products: FC = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
+  const [sliderLoading, setSliderLoading] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 640 });
   const isSmall = useMediaQuery({ maxWidth: 768, minWidth: 640 });
   const isTablet = useMediaQuery({ maxWidth: 1068, minWidth: 768 });
 
   const allProducts = [...initialProducts, ...additionalProducts];
 
-  const handleSlideChange = (currentIndex: number) => {
-    const preloadOffset = 4;
+  const handleSlideChange = async (currentIndex: number) => {
+    const preloadOffset = 7;
 
     if (isMobile && hasMore && currentIndex + preloadOffset >= allProducts.length) {
-      loadMore();
+      setSliderLoading(true);
+      await loadMore();
+      setSliderLoading(false);
     }
   };
 
@@ -124,39 +127,47 @@ const Products: FC = () => {
         <>
           <ProductsContainer>
             {isMobile ? (
-              <Slider {...sliderSettings}>
-                {allProducts.map(({ id, primary_image, wbid }) => (
-                  <div key={`product-${id}`}>
-                    <ProductCard>
-                      {!imageLoaded[id] && <SkeletonCard />}
-                      <img
-                        src={primary_image}
-                        alt={`Product ${id}`}
-                        width="250"
-                        style={{ display: imageLoaded[id] ? "block" : "none" }}
-                        onLoad={() => handleImageLoad(id)}
-                      />
-                      <p>ЗАКАЗАТЬ</p>
-                      <LinkContainer>
-                        <MarketButton market="ozon" border="visible">
-                          <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
-                            OZON
-                          </a>
-                        </MarketButton>
-                        <MarketButton market="wb" border="visible">
-                          <a
-                            href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            WB
-                          </a>
-                        </MarketButton>
-                      </LinkContainer>
-                    </ProductCard>
-                  </div>
-                ))}
-              </Slider>
+              sliderLoading ? (
+                <div className="slider-loading">
+                  {Array.from({ length: skeletonLength() }).map((_, i) => (
+                    <SkeletonCard key={`slider-skeleton-${i}`} isFullCard />
+                  ))}
+                </div>
+              ) : (
+                <Slider {...sliderSettings}>
+                  {allProducts.map(({ id, primary_image, wbid }) => (
+                    <div key={`product-${id}`}>
+                      <ProductCard>
+                        {!imageLoaded[id] && <SkeletonCard />}
+                        <img
+                          src={primary_image}
+                          alt={`Product ${id}`}
+                          width="250"
+                          style={{ display: imageLoaded[id] ? "block" : "none" }}
+                          onLoad={() => handleImageLoad(id)}
+                        />
+                        <p>ЗАКАЗАТЬ</p>
+                        <LinkContainer>
+                          <MarketButton market="ozon" border="visible">
+                            <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                              OZON
+                            </a>
+                          </MarketButton>
+                          <MarketButton market="wb" border="visible">
+                            <a
+                              href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              WB
+                            </a>
+                          </MarketButton>
+                        </LinkContainer>
+                      </ProductCard>
+                    </div>
+                  ))}
+                </Slider>
+              )
             ) : (
               allProducts.map(({ id, primary_image, wbid }) => (
                 <ProductCard key={`product-${id}`}>
