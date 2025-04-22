@@ -53,15 +53,19 @@ export const ModalWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  img {
+    border-radius: 20px;
+  }
 `;
 
 export const SliderWrapper = styled.div`
-  margin: auto;
+  margin: 20px auto;
   .slick-slide div {
     display: flex !important;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    cursor: auto;
   }
   .slick-prev,
   .slick-next {
@@ -96,11 +100,11 @@ export const SliderWrapper = styled.div`
   }
   .slick-dots {
     button::before {
-      color: var(--green);
+      color: var(--foreground);
     }
     .slick-active {
       button::before {
-        color: var(--green);
+        color: var(--foreground);
       }
     }
   }

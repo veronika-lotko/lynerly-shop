@@ -1,6 +1,18 @@
 import styled from "styled-components";
 import { jump, shine } from "@/animations/animations";
 
+export const ContactWrapper = styled.div`
+  p {
+    margin: 20px;
+    font-size: 10px;
+    opacity: 0.7;
+
+    a {
+      color: var(--wbcolor);
+    }
+  }
+`;
+
 export const StyledLogo = styled.a`
   img {
     margin: 20px 0;

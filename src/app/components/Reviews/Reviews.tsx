@@ -51,12 +51,14 @@ const Reviews: FC = () => {
           </Slider>
         </SliderWrapper>
       ) : (
-        <ImgWrapper>
-          {imageSources.map((src, index) => (
-            <div key={index} onClick={() => openModal(src)}>
-              <Image alt={`review-${index + 1}`} src={src} width={430} height={115} />
-            </div>
-          ))}
+        <>
+          <ImgWrapper>
+            {imageSources.map((src, index) => (
+              <div key={index} onClick={() => openModal(src)}>
+                <Image alt={`review-${index + 1}`} src={src} width={430} height={115} />
+              </div>
+            ))}
+          </ImgWrapper>
           {selectedImage && (
             <ModalWrapper onClick={closeModal}>
               <div>
@@ -64,7 +66,7 @@ const Reviews: FC = () => {
               </div>
             </ModalWrapper>
           )}
-        </ImgWrapper>
+        </>
       )}
 
       <hr />
