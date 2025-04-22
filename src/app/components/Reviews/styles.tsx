@@ -1,3 +1,4 @@
+import { mquery } from "@/constants/breakpoints";
 import styled from "styled-components";
 
 export const ReviewsWrapper = styled.div`
@@ -9,29 +10,6 @@ export const ReviewsWrapper = styled.div`
     border: none;
     margin: 30px auto;
     width: 60%;
-  }
-
-  .slick-prev,
-  .slick-next {
-    z-index: 3;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 60px;
-    color: white;
-  }
-  .slick-prev {
-    left: 15px;
-  }
-  .slick-next {
-    right: 15px;
   }
 `;
 
@@ -74,5 +52,60 @@ export const ModalWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
+  }
+`;
+
+export const SliderWrapper = styled.div`
+  margin: auto;
+  .slick-slide div {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .slick-prev,
+  .slick-next {
+    z-index: 3;
+    width: 70px;
+    height: 140px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 60px;
+    color: var(--green);
+    opacity: 0.4;
+    &::hover {
+      opacity: 0.9;
+    }
+  }
+  .slick-prev {
+    left: 0;
+    ${mquery.small} {
+      left: 15px;
+    }
+  }
+  .slick-next {
+    right: 0;
+    ${mquery.small} {
+      right: 15px;
+    }
+  }
+  .slick-dots {
+    button::before {
+      color: var(--green);
+    }
+    .slick-active {
+      button::before {
+        color: var(--green);
+      }
+    }
+  }
+
+  img {
+    border-radius: 20px;
   }
 `;
