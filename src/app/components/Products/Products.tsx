@@ -149,13 +149,17 @@ const Products: FC = () => {
                         <p>ЗАКАЗАТЬ</p>
                         <LinkContainer>
                           <MarketButton market="ozon" border="visible">
-                            <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                            <a
+                              href={`https://www.ozon.ru/product/${id}/?utm_campaign=vendor_org_190789&utm_medium=article&utm_source=site`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               OZON
                             </a>
                           </MarketButton>
                           <MarketButton market="wb" border="visible">
                             <a
-                              href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                              href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx?utm_source=site&utm_medium=cpc&utm_campaign=158161-id-site`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -182,13 +186,17 @@ const Products: FC = () => {
                   <p>ЗАКАЗАТЬ</p>
                   <LinkContainer>
                     <MarketButton market="ozon" border="visible">
-                      <a href={`https://www.ozon.ru/product/${id}`} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={`https://www.ozon.ru/product/${id}/?utm_campaign=vendor_org_190789&utm_medium=article&utm_source=site`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         OZON
                       </a>
                     </MarketButton>
                     <MarketButton market="wb" border="visible">
                       <a
-                        href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx`}
+                        href={`https://www.wildberries.ru/catalog/${wbid}/detail.aspx?utm_source=site&utm_medium=cpc&utm_campaign=158161-id-site`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
